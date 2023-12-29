@@ -1,4 +1,4 @@
-package com.techconative.demo.bo;
+package com.techconative.demo.entity;
 
 public class Like {
 

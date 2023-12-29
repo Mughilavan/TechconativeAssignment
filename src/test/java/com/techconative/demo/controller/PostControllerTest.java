@@ -1,7 +1,7 @@
 package com.techconative.demo.controller;
 
-import com.techconative.demo.bo.Post;
-import com.techconative.demo.bo.User;
+import com.techconative.demo.entity.Post;
+import com.techconative.demo.entity.User;
 import com.techconative.demo.constants.Constant;
 import com.techconative.demo.repository.CommentRepository;
 import com.techconative.demo.repository.PostRepository;

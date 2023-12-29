@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techconative.demo.bo.User;
+import com.techconative.demo.entity.User;
 import com.techconative.demo.service.UserServiceImpl;
 
 import jakarta.validation.Valid;

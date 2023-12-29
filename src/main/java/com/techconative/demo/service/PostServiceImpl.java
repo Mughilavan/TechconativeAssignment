@@ -1,6 +1,6 @@
 package com.techconative.demo.service;
 
-import com.techconative.demo.bo.Post;
+import com.techconative.demo.entity.Post;
 import com.techconative.demo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.techconative.demo.bo;
+package com.techconative.demo.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

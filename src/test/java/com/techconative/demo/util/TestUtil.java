@@ -1,6 +1,6 @@
 package com.techconative.demo.util;
 
-import com.techconative.demo.bo.User;
+import com.techconative.demo.entity.User;
 
 public class TestUtil {
 
