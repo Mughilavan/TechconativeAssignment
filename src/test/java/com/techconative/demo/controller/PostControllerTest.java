@@ -37,7 +37,7 @@ public class PostControllerTest {
     @Autowired
     private CommentRepository commentRepository;
 
-    private HttpHeaders headers = getHttpHeader();
+    private final HttpHeaders headers = getHttpHeader();
 
     private final Logger logger =  LoggerFactory.getLogger(PostControllerTest.class);
 

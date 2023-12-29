@@ -34,7 +34,7 @@ public class UserControllerTest {
     @LocalServerPort
     private int port;
 
-    private HttpHeaders headers = getHttpHeader();
+    private final HttpHeaders headers = getHttpHeader();
 
     private final Logger logger =  LoggerFactory.getLogger(UserControllerTest.class);
 
