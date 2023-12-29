@@ -129,7 +129,6 @@ public class UserControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", requestEntity, String.class);
-        return responseEntity;
+        return restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", requestEntity, String.class);
     }
 }
