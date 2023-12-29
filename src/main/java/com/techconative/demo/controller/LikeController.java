@@ -5,7 +5,6 @@ import com.techconative.demo.entity.Post;
 import com.techconative.demo.entity.User;
 import com.techconative.demo.service.PostServiceImpl;
 import com.techconative.demo.service.UserServiceImpl;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -37,6 +37,8 @@ public class PostControllerTest {
     @Autowired
     private CommentRepository commentRepository;
 
+    private HttpHeaders headers = getHttpHeader();
+
     private final Logger logger =  LoggerFactory.getLogger(PostControllerTest.class);
 
     @AfterEach
@@ -56,12 +58,10 @@ public class PostControllerTest {
     @Test
     void testCreateRetrieveUpdateAndDeletePostSuccessCase() {
         User user = TestUtil.getUserObject("Mughilavan1", "mughilavanceg1@gmail.com", "teststa", "1234567291", "917456321025");
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
         restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", requestEntity, String.class);
 
-        //create post
+        //create post success case
         Long userId = userRepository.findLatestUserId();
         logger.info("latest user id is: {}", userId);
         user = new User();
@@ -69,14 +69,12 @@ public class PostControllerTest {
         Post post = new Post();
         post.setContent("Sample post");
         post.setUser(user);
-        headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForCreatePost = new HttpEntity<>(post, headers);
         ResponseEntity<String> responseEntityForCreatePost = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/posts", requestEntityForCreatePost, String.class);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntityForCreatePost.getStatusCode());
         Assertions.assertTrue(responseEntityForCreatePost.getBody().contains("Sample post"));
 
-        //retrieve post
+        //retrieve post success case
         Long latestPostId = postRepository.findLatestPostId();
         logger.info("Latest post id is: {}",latestPostId);
         String getPostUrl = "http://localhost:" + port + "/socialmediaapp/api/posts/{postId}";
@@ -85,21 +83,19 @@ public class PostControllerTest {
         Assertions.assertTrue(responseEntityForGetPost.getBody().contains("Sample post"));
         Assertions.assertTrue(responseEntityForGetPost.getBody().contains("userName='Mughilavan1', email='mughilavanceg1@gmail.com', password='teststa', aadharNumber='917456321025', mobileNumber='1234567291'"));
 
-        //update post
+        //update post success case
         User updatedUser = new User();
         updatedUser.setId(userId);
         Post updatePost = new Post();
         updatePost.setContent("Post content updated");
         updatePost.setUser(updatedUser);
-        headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForUpdatePost = new HttpEntity<>(updatePost, headers);
         String updatePostUrl = "http://localhost:" + port + "/socialmediaapp/api/posts/"+ latestPostId;
         ResponseEntity<String> responseEntityForUpdatePost = restTemplate.exchange(updatePostUrl, HttpMethod.PUT, requestEntityForUpdatePost, String.class);
         Assertions.assertEquals(HttpStatus.OK, responseEntityForUpdatePost.getStatusCode());
         Assertions.assertTrue(responseEntityForUpdatePost.getBody().contains("Post content updated"));
 
-        //Delete Post
+        //Delete Post success case
         String deletePostUrl = "http://localhost:" + port + "/socialmediaapp/api/posts/" + latestPostId;
         ResponseEntity<String> responseEntityForDeletePost = restTemplate.exchange(deletePostUrl, HttpMethod.DELETE, null, String.class);
         Assertions.assertEquals(HttpStatus.OK, responseEntityForDeletePost.getStatusCode());
@@ -117,8 +113,6 @@ public class PostControllerTest {
         Post post = new Post();
         post.setContent("Sample post");
         post.setUser(user);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForCreatePost = new HttpEntity<>(post, headers);
         ResponseEntity<String> responseEntityForCreatePost = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/posts", requestEntityForCreatePost, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntityForCreatePost.getStatusCode());
@@ -126,8 +120,6 @@ public class PostControllerTest {
 
         post = new Post();
         post.setContent("Sample post");
-        headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForCreatePostInvalid = new HttpEntity<>(post, headers);
         ResponseEntity<String> responseEntityForCreatePostInvalid = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/posts", requestEntityForCreatePostInvalid, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntityForCreatePostInvalid.getStatusCode());
@@ -136,8 +128,6 @@ public class PostControllerTest {
         post = new Post();
         post.setContent("Sample post");
         post.setUser(new User());
-        headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForCreatePostInvalid2 = new HttpEntity<>(post, headers);
         ResponseEntity<String> responseEntityForCreatePostInvalid2 = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/posts", requestEntityForCreatePostInvalid2, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntityForCreatePostInvalid2.getStatusCode());
@@ -166,8 +156,6 @@ public class PostControllerTest {
     void testUpdatePostFailureCase() {
         Post updatePost = new Post();
         updatePost.setContent("Post content updated");
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
         HttpEntity<Post> requestEntityForUpdatePost = new HttpEntity<>(updatePost, headers);
         String updatePostUrl = "http://localhost:" + port + "/socialmediaapp/api/posts/"+ Long.MAX_VALUE;
         ResponseEntity<String> responseEntityForUpdatePost = restTemplate.exchange(updatePostUrl, HttpMethod.PUT, requestEntityForUpdatePost, String.class);
@@ -176,5 +164,10 @@ public class PostControllerTest {
 
     }
 
+    private HttpHeaders getHttpHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        return headers;
+    }
 
 }

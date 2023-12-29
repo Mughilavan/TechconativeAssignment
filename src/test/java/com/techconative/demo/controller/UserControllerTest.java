@@ -1,7 +1,6 @@
 package com.techconative.demo.controller;
 
 import com.techconative.demo.entity.User;
-import com.techconative.demo.constants.Constant;
 import com.techconative.demo.repository.CommentRepository;
 import com.techconative.demo.repository.PostRepository;
 import com.techconative.demo.repository.UserRepository;
@@ -14,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+
+import static com.techconative.demo.constants.Constant.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
@@ -32,6 +33,8 @@ public class UserControllerTest {
 
     @LocalServerPort
     private int port;
+
+    private HttpHeaders headers = getHttpHeader();
 
     private final Logger logger =  LoggerFactory.getLogger(UserControllerTest.class);
 
@@ -70,14 +73,12 @@ public class UserControllerTest {
         String getUserProfileUrl = "http://localhost:" + port + "/socialmediaapp/api/users/{userId}";
         ResponseEntity<String> responseEntityForGetUser = restTemplate.getForEntity(getUserProfileUrl, String.class, userId);
         Assertions.assertEquals(HttpStatus.NOT_FOUND, responseEntityForGetUser.getStatusCode());
-        Assertions.assertTrue(responseEntityForGetUser.getBody().contains("User is not found for given userID:"));
+        Assertions.assertTrue(responseEntityForGetUser.getBody().contains(USER_NOT_FOUND));
     }
 
     @Test
     public void testRegisterUserFailureCase() {
         User user = TestUtil.getUserObject("Mug", "gmail.com", "test", "1234567", "91745635");
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", requestEntity, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
@@ -92,43 +93,39 @@ public class UserControllerTest {
         Assertions.assertTrue(validUserResponseEntity.getBody().contains("userName='Mughilavan1', email='mughilavanceg1@gmail.com', password='teststa', aadharNumber='917456321025', mobileNumber='1234567291'"));
 
         User existingUserName = TestUtil.getUserObject("Mughilavan1", "mughilavanceg1@gmail.com", "teststa", "1234567291", "917456321025");
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> existingUserRequestEntity = new HttpEntity<>(existingUserName, headers);
         ResponseEntity<String> existingUserResponseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", existingUserRequestEntity, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, existingUserResponseEntity.getStatusCode());
-        Assertions.assertTrue(existingUserResponseEntity.getBody().contains(Constant.USER_ALREADY_EXIST));
+        Assertions.assertTrue(existingUserResponseEntity.getBody().contains(USER_ALREADY_EXIST));
 
         User existingEmail = TestUtil.getUserObject("Mughilavan11", "mughilavanceg1@gmail.com", "teststa", "1234567291", "917456321025");
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> existingEmailRequestEntity = new HttpEntity<>(existingEmail, headers);
         ResponseEntity<String> existingEmailResponseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", existingEmailRequestEntity, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, existingEmailResponseEntity.getStatusCode());
-        Assertions.assertTrue(existingEmailResponseEntity.getBody().contains(Constant.EMAIL_ALREADY_EXIST));
+        Assertions.assertTrue(existingEmailResponseEntity.getBody().contains(EMAIL_ALREADY_EXIST));
 
         User existingMobileNumber = TestUtil.getUserObject("Mughilavan11", "mughilavanceg1a@gmail.com", "teststa", "1234567291", "917456321025");
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> existingMobileRequestEntity = new HttpEntity<>(existingMobileNumber, headers);
         ResponseEntity<String> existingMobileResponseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", existingMobileRequestEntity, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, existingMobileResponseEntity.getStatusCode());
-        Assertions.assertTrue(existingMobileResponseEntity.getBody().contains(Constant.MOBILE_NUMBER_ALREADY_EXIST));
+        Assertions.assertTrue(existingMobileResponseEntity.getBody().contains(MOBILE_NUMBER_ALREADY_EXIST));
 
         User existingAadharNumber = TestUtil.getUserObject("Mughilavan11", "mughilavanceg1a@gmail.com", "teststa", "1234567297", "917456321025");
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> existingAadharRequestEntity = new HttpEntity<>(existingAadharNumber, headers);
         ResponseEntity<String> existingAadharResponseEntity = restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", existingAadharRequestEntity, String.class);
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, existingAadharResponseEntity.getStatusCode());
-        Assertions.assertTrue(existingAadharResponseEntity.getBody().contains(Constant.AADHAR_NUMBER_ALREADY_EXIST));
+        Assertions.assertTrue(existingAadharResponseEntity.getBody().contains(AADHAR_NUMBER_ALREADY_EXIST));
     }
 
     public ResponseEntity<String> createPostValidCase() {
         User user = TestUtil.getUserObject("Mughilavan1", "mughilavanceg1@gmail.com", "teststa", "1234567291", "917456321025");
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
         HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
         return restTemplate.postForEntity("http://localhost:" + port + "/socialmediaapp/api/users", requestEntity, String.class);
+    }
+
+    private HttpHeaders getHttpHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        return headers;
     }
 }
