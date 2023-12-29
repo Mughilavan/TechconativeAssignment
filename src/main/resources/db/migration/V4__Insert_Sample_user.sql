@@ -1,0 +1,1 @@
+INSERT INTO user_details(user_name, password, email, mobile_number, aadhar_number, backup_email) values("sample","testpassword", "samp@gmail.com", "1234567890", "123456789000", "sampback@gmail.com");
