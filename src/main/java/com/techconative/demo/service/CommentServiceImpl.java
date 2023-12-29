@@ -12,9 +12,6 @@ public class CommentServiceImpl {
     @Autowired
     private CommentRepository commentRepository;
 
-    @Autowired
-    private PostRepository postRepository;
-
     public Comment addComment(Comment comment) {
         return commentRepository.save(comment);
     }

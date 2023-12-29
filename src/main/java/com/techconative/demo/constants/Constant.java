@@ -11,4 +11,6 @@ public class Constant {
     public static final String EMAIL_ALREADY_EXIST  = "Given Email is already exists for a user";
     public static final String MOBILE_NUMBER_ALREADY_EXIST = "Given Mobile Number is already exists for a user";
     public static final String AADHAR_NUMBER_ALREADY_EXIST = "Given Aadhar number is already exists for a user";
+    public static final String ALREADY_LIKED = "User has already liked the post";
+    public static final String LIKE_SUCCEEDED = "User has already liked the post";
 }
