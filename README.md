@@ -21,8 +21,8 @@ methods and URL structures. Authentication is optional.
 Tech Stack Used:
 
 Java version used: 17       
-Spring boot version used: 3.1.7   
-Database used: MySQL (8.0.33)
+Spring boot version used: 3.1.5   
+Database used: MySQL 8
 Maven used: 3.9.5
 
 MySQL database details :
@@ -47,14 +47,17 @@ How to run:
 
 1. Clone the repository in your IDE and load the project as a maven project. 
    git clone https://github.com/Mughilavan/TechconativeAssignment.git
-
+2. Manually Create the database in your MySQL before running the application using below query.
+   CREATE DATABASE techconativedb;
+   Note: You can use any name as a database name. The created database name should be used in database URL.
 2. Edit the below properties in application.properties file.
-   spring.datasource.url=jdbc:mysql://localhost:<MySQL port>/techconativedb?useSSL=false
-   spring.datasource.username=<Your database user name>
-   spring.datasource.password=<Your database password>
+   spring.datasource.url=jdbc:mysql://<hostname>:<port>/techconativedb?useSSL=false
+   spring.datasource.username=<username>
+   spring.datasource.password=<password>
    server.port=<port> (8080 is default port. You can change the port)
-3. Build the project using below comment.
+3. Build the project using below comment. 
    mvn clean install
+   Note: If you want to exclude the test case use "-x test" after the comment. 
 4. Run the project using below comment.
    mvn spring-boot:run
 5. If the step 4 is not working, try the below comment in the project location.
