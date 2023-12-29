@@ -24,7 +24,7 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	private Logger logger =  LoggerFactory.getLogger(UserController.class);
+	private final Logger logger =  LoggerFactory.getLogger(UserController.class);
 
 	/*
 	 registerUser API validates and registered the User.

@@ -6,7 +6,6 @@ import com.techconative.demo.bo.User;
 import com.techconative.demo.constants.Constant;
 import com.techconative.demo.service.PostServiceImpl;
 import com.techconative.demo.service.UserServiceImpl;
-import org.apache.tomcat.util.bcel.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class LikeController {
     @Autowired
     UserServiceImpl userService;
 
-    private Logger logger =  LoggerFactory.getLogger(LikeController.class);
+    private final Logger logger =  LoggerFactory.getLogger(LikeController.class);
 
     @PutMapping
     public ResponseEntity<String> likePost(@PathVariable Long postId, @RequestBody Like like) {

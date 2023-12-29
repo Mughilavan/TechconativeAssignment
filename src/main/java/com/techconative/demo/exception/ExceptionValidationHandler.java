@@ -1,10 +1,6 @@
 package com.techconative.demo.exception;
 
 import com.techconative.demo.constants.Constant;
-import com.techconative.demo.controller.PostController;
-import org.apache.tomcat.util.bcel.Const;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ExceptionValidationHandler {
-
-	private Logger logger =  LoggerFactory.getLogger(ExceptionValidationHandler.class);
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

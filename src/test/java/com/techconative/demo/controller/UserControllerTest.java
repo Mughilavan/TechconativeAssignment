@@ -33,7 +33,7 @@ public class UserControllerTest {
     @LocalServerPort
     private int port;
 
-    private Logger logger =  LoggerFactory.getLogger(UserControllerTest.class);
+    private final Logger logger =  LoggerFactory.getLogger(UserControllerTest.class);
 
     @AfterEach
     public void tearDown() {

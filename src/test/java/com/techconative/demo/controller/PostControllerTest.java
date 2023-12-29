@@ -37,7 +37,7 @@ public class PostControllerTest {
     @Autowired
     private CommentRepository commentRepository;
 
-    private Logger logger =  LoggerFactory.getLogger(PostControllerTest.class);
+    private final Logger logger =  LoggerFactory.getLogger(PostControllerTest.class);
 
     @AfterEach
     public void tearDown() {

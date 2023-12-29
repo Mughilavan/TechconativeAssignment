@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ public class CommentController {
     @Autowired
     private PostServiceImpl postService;
 
-    private Logger logger =  LoggerFactory.getLogger(CommentController.class);
+    private final Logger logger =  LoggerFactory.getLogger(CommentController.class);
 
     @PostMapping
     public ResponseEntity<String> addCommentToPost(@PathVariable Long postId, @RequestBody Comment comment) {

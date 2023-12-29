@@ -39,7 +39,7 @@ public class CommentControllerTest {
     @LocalServerPort
     private int port;
 
-    private Logger logger =  LoggerFactory.getLogger(CommentControllerTest.class);
+    private final Logger logger =  LoggerFactory.getLogger(CommentControllerTest.class);
 
     @AfterEach
     public void tearDown() {

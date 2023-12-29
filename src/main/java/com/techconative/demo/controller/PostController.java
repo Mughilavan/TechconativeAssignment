@@ -25,7 +25,7 @@ public class PostController {
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    private Logger logger =  LoggerFactory.getLogger(PostController.class);
+    private final Logger logger =  LoggerFactory.getLogger(PostController.class);
 
     /*
     createPost API creates the post and persist in the db.
